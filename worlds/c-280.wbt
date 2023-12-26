@@ -1,0 +1,271 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/OsbWood.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/BrushedAluminium.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/solids/protos/SolidBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Parquetry.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.0904981234720059 -0.039619145308322355 0.995108241837582 5.57371304873524
+  position -0.701357656992067 0.4285140879377721 0.26021270429658805
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Solid {
+  translation 0 -0.12 -0.03
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance Parquetry {
+            type "chequered"
+          }
+          geometry IndexedFaceSet {
+            coord Coordinate {
+              point [
+                -0.5 -0.5 0
+                0.5 -0.5 0
+                -0.5 0.5 0
+                0.5 0.5 0
+              ]
+            }
+            texCoord TextureCoordinate {
+              point [
+                0 0
+                2 0
+                0 2
+                2 2
+              ]
+            }
+            coordIndex [
+              2, 0, 1, 3, -1
+            ]
+            texCoordIndex [
+              2, 0, 1, 3, -1
+            ]
+          }
+        }
+      ]
+      name "floor"
+      model "floor"
+      boundingObject Plane {
+      }
+      locked TRUE
+    }
+    SolidBox {
+      translation 0.505 0 0.05
+      name "wall"
+      size 0.01 1 0.1
+      appearance BrushedAluminium {
+      }
+    }
+    SolidBox {
+      translation -0.505 0 0.05
+      name "wall#2"
+      size 0.01 1 0.1
+      appearance BrushedAluminium {
+      }
+    }
+    SolidBox {
+      translation 0 0.505 0.05
+      name "wall#3"
+      size 1.02 0.01 0.1
+      appearance BrushedAluminium {
+      }
+    }
+    SolidBox {
+      translation 0.01 -0.505 0.05
+      name "wall#4"
+      size 1.02 0.01 0.1
+      appearance BrushedAluminium {
+      }
+    }
+  ]
+  name "rectangle arena"
+  model "rectangle arena"
+}
+PointLight {
+  attenuation 0 0 1
+  intensity 0.6
+  location 0.6 0.6 0
+}
+DEF slope Solid {
+  translation -0.113615 0 0.239623
+  rotation 0 1 0 -0.6471953071795866
+  children [
+    Shape {
+      appearance OsbWood {
+        textureTransform TextureTransform {
+        }
+      }
+      geometry DEF box0 Box {
+        size 0.8 0.2 0.02
+      }
+    }
+  ]
+}
+Robot {
+  translation -0.191809 0.00225248 0.228112
+  rotation -0.24157302114706167 -0.1853680162269315 0.9525130833820467 1.87924
+  children [
+    DEF right_wheel HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        DEF right_wheel_sensor PositionSensor {
+        }
+        RotationalMotor {
+          name "right wheel motor"
+          consumptionFactor 70
+        }
+      ]
+      endPoint Solid {
+        translation 0.03 0 -0.01
+        rotation 0 0 1 -2.8797953071795863
+        children [
+          DEF WHEEL Pose {
+            rotation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.0944
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 1 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.025
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        DEF left_wheel_sensor PositionSensor {
+        }
+        RotationalMotor {
+          name "Left wheel motor"
+          consumptionFactor 70
+        }
+      ]
+      endPoint Solid {
+        translation -0.04 0 -0.01
+        rotation 0 1 0 0
+        children [
+          DEF WHEEL Pose {
+            rotation 0.577883556445323 0.5770834407562329 -0.5770834407562329 -2.09
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.0196078 1 0.478431
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.025
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+      }
+    }
+    DistanceSensor {
+      translation 0.0328484 0.0385728 0.063
+      rotation 0 0 1 -1.8325953071795862
+      children [
+        DEF SENSOR Pose {
+          rotation 0.577350069402642 0.5773503690830916 -0.5773503690830916 -2.09394
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 1 1 0.498039
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0.05 0.024 0
+        0 1024 0
+        0.15 0 0
+      ]
+    }
+    DistanceSensor {
+      translation -0.0107497 0.047198 0.063
+      rotation 0 0 1 1.309
+      children [
+        DEF SENSOR Pose {
+          rotation 0.577350069402642 0.5773503690830916 -0.5773503690830916 -2.09394
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 1 1 0.498039
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds1"
+      lookupTable [
+        0.05 0.024 0
+        0 1024 0
+        0.15 0 0
+      ]
+    }
+    Pose {
+      translation 0 0 0.0415
+      children [
+        DEF RobotBody Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    Altimeter {
+      translation 0 0 0.0415
+    }
+  ]
+  name "My Robot Ramp Robot"
+  contactMaterial "Body"
+  controller "my_controller"
+}
+Pose {
+}
